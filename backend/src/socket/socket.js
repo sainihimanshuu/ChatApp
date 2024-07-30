@@ -21,13 +21,15 @@ io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
     if (userId) {
         userSocketIdMap[userId] = socket.id;
+        console.log(userSocketIdMap);
     }
     io.emit("onlineUsers", Object.keys(userSocketIdMap));
     socket.on("disconnect", () => {
         console.log("a user disconnected", socket.id);
         delete userSocketIdMap[userId];
+        console.log(userSocketIdMap);
         io.emit("onlineUsers", Object.keys(userSocketIdMap));
     });
 });
 
-export { io, httpServer, getReceiverSocketId };
+export { io, httpServer, getReceiverSocketId, userSocketIdMap };

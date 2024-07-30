@@ -1,20 +1,16 @@
 import axios from "../axios/axios.js";
 import { storeLogin } from "../features/authSlice.js";
-import {
-    setStoreUserSocket,
-    setStoreOnlineUsers,
-} from "../features/socketSlice.js";
 import { useDispatch } from "react-redux";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 //only doubt -> will the onlineUsers event listener work? just console log whereever douubt to check
 const useLogin = () => {
+    const dispatch = useDispatch();
     const login = (data, setIsValidCredentials) => {
-        const dispatch = useDispatch();
         axios
-            .post("/user/userLogin", data)
+            .post("/user/loginUser", data)
             .then((response) => {
-                dispatch(storeLogin(response.data.user));
+                dispatch(storeLogin(response.data.user)); //to login in store
                 setIsValidCredentials(true);
                 localStorage.setItem(
                     "token",
@@ -24,15 +20,7 @@ const useLogin = () => {
                     "user",
                     JSON.stringify(response.data.user)
                 );
-                const socket = io("http://localhost:8000", {
-                    query: {
-                        userId: response.data.user._id,
-                    },
-                });
-                dispatch(setStoreUserSocket(socket));
-                socket.on("onlineUsers", (users) => {
-                    dispatch(setStoreOnlineUsers(users));
-                });
+                //dispatch({ type: "socket/connect" }); // to store the socket instance
             })
             .catch((error) => {
                 console.log("error while logging in", error);

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .myButton {
-  @apply m-2 w-20 h-10 cursor-pointer rounded-full font-semibold bg-gray-800 text-gray-100;
+    @apply m-2 w-20 h-10 cursor-pointer rounded-full font-semibold bg-darkBrown text-gray-100;
 }
 
 .clickableDiv {
-  @apply cursor-pointer;
+    @apply cursor-pointer;
 }

@@ -10,7 +10,14 @@ import {
     RouterProvider,
     Route,
 } from "react-router-dom";
-import { HomePage, LoginPage, SignupPage } from "./pages/index.js";
+import {
+    HomePage,
+    LoginPage,
+    SignupPage,
+    ChatAreaPage,
+} from "./pages/index.js";
+import { SocketContextProvider } from "./context/SocketContext.jsx";
+import { ConversationContextProvider } from "./context/ConversationContext.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -18,12 +25,22 @@ const router = createBrowserRouter(
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route
+                path="/chatArea"
+                element={
+                    <ConversationContextProvider>
+                        <ChatAreaPage />
+                    </ConversationContextProvider>
+                }
+            />
         </Route>
     )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
-        <RouterProvider router={router} />
+        <SocketContextProvider>
+            <RouterProvider router={router} />
+        </SocketContextProvider>
     </Provider>
 );

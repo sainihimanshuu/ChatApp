@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    userSocket: null,
+    isConnected: false,
     onlineUser: [],
 };
 
@@ -9,8 +9,8 @@ export const socketSlice = createSlice({
     name: "socket",
     initialState,
     reducers: {
-        setStoreUserSocket: (state, action) => {
-            state.userSocket = action.payload;
+        setStoreIsConnected: (state, action) => {
+            state.isConnected = action.payload;
         },
         setStoreOnlineUsers: (state, action) => {
             state.onlineUser = action.payload;
@@ -18,5 +18,5 @@ export const socketSlice = createSlice({
     },
 });
 
-export const { setStoreUserSocket, setStoreOnlineUsers } = socketSlice.actions;
+export const { setStoreIsConnected, setStoreOnlineUsers } = socketSlice.actions;
 export default socketSlice.reducer;

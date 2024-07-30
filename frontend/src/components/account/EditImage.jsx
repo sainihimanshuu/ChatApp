@@ -2,7 +2,7 @@ export default function EditImage({ src, onClick, label, className }) {
     return (
         <div className="relative">
             {label && (
-                <label className="text-gray-800 font-semibold">{label}</label>
+                <label className="text-darkBrown font-semibold">{label}</label>
             )}
             <img className={`mt-1 ${className}`} src={src} />
             <div
@@ -14,7 +14,7 @@ export default function EditImage({ src, onClick, label, className }) {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
-                    stroke="currentColor"
+                    stroke="#481E14"
                     class="size-6"
                 >
                     <path

@@ -7,7 +7,6 @@ function App() {
         <div>
             <Header />
             <Outlet />
-            <div>Hello</div>
         </div>
     );
 }

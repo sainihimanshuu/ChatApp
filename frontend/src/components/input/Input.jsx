@@ -13,7 +13,7 @@ const Input = forwardRef(function Input(
                     id={id}
                     type={type}
                     placeholder={placeHolder}
-                    className={`rounded-md pl-1 h-7 w-3/4 ${className}`}
+                    className={`rounded-md p-2 h-7 ${className}`}
                     ref={ref}
                     {...props}
                 />

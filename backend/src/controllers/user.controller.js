@@ -156,4 +156,23 @@ const refreshTokens = asyncHandler(async (req, res) => {
         .json({ message: "tokens refreshed", accessToken: accessToken });
 });
 
-export { loginUser, createUser, logoutUser, refreshTokens };
+const getOnlineUserList = asyncHandler(async (req, res) => {
+    const { userId } = req.user._id;
+
+    const onlineUserDetails = await Promise.all(
+        req.body.map(async (id) => {
+            if (id !== userId) {
+                return await User.findById(id).select(
+                    "-password -refreshToken"
+                );
+            }
+        })
+    );
+
+    return res.status(200).json({
+        message: "User details for sidebar fetched",
+        onlineUserDetails,
+    });
+});
+
+export { loginUser, createUser, logoutUser, refreshTokens, getOnlineUserList };

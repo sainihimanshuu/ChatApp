@@ -82,8 +82,8 @@ export default function Signup() {
     };
 
     return (
-        <div className="bg-gray-200 shadow-2xl rounded-[20px] w-80 h-[40rem] mx-auto mt-16 mb-10 relative">
-            <h2 className="text-gray-800 text-xl font-bold absolute inset-0 mt-6">
+        <div className="bg-lightBrown shadow-2xl rounded-[20px] w-80 h-[40rem] mx-auto mt-16 mb-10 relative">
+            <h2 className="text-darkBrown text-xl font-bold absolute inset-0 mt-6">
                 Signup
             </h2>
             <form
@@ -109,17 +109,19 @@ export default function Signup() {
                     />
                 </div>
                 <Input
-                    className="mt-4"
+                    className="w-3/4 mt-4"
                     placeHolder="username"
                     error={errors.username?.message}
                     {...register("username")}
                 />
                 <Input
+                    className="w-3/4"
                     placeHolder="email"
                     error={errors.email?.message}
                     {...register("email")}
                 />
                 <Input
+                    className="w-3/4"
                     placeHolder="password"
                     type="password"
                     error={errors.password?.message}
@@ -128,8 +130,13 @@ export default function Signup() {
                 <Button className="myButton" type="submit">
                     Signup
                 </Button>
-                <h2 className="mt-3">Already have an account?</h2>
-                <Link className="underline underline-offset-1" to="/login">
+                <h2 className="mt-3 text-darkBrown">
+                    Already have an account?
+                </h2>
+                <Link
+                    className="underline underline-offset-1 text-darkBrown"
+                    to="/login"
+                >
                     Log In
                 </Link>
             </form>
