@@ -4,12 +4,14 @@ import Message from "../models/message.model.js";
 import { io, getReceiverSocketId } from "../socket/socket.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
-    const { senderId } = req.user._id;
+    const senderId = req.user._id;
     const { receiverId } = req.params;
     const { message } = req.body;
 
-    let conversation = await Conversation.find({
-        participants: { $all: [senderId, receiverId] },
+    let conversation = await Conversation.findOne({
+        participants: {
+            $all: [senderId, receiverId],
+        },
     });
     if (!conversation) {
         conversation = await Conversation.create({
@@ -38,9 +40,9 @@ const sendMessage = asyncHandler(async (req, res) => {
 
 const getMessages = asyncHandler(async (req, res) => {
     const { receiverId } = req.params;
-    const { senderId } = req.user._id;
+    const senderId = req.user._id;
 
-    const conversation = await Conversation.find({
+    const conversation = await Conversation.findOne({
         participants: { $all: [senderId, receiverId] },
     }).populate("messages");
 

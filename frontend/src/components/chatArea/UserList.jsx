@@ -9,17 +9,13 @@ export default function UserList() {
     const [userList, setUserList] = useState([]);
     const [loading, setLoading] = useState(true);
     const { onlineUsers } = useSocketContext();
-    const { setConversation } = useConversationContext();
+    const { setReceiver, setConversation } = useConversationContext();
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
-        console.log(onlineUsers);
         axiosPrivate
             .post("/user/getOnlineUserList", onlineUsers)
             .then((response) => {
-                console.log(
-                    `online users response ${response.data.onlineUserDetails}`
-                );
                 setUserList(response.data.onlineUserDetails);
                 setLoading(false);
             })
@@ -31,12 +27,12 @@ export default function UserList() {
             );
     }, [onlineUsers]);
 
-    const getConversation = (receiverId) => {
+    const getConversation = (receiver) => {
         axiosPrivate
-            .get(`/message/getMessages/${receiverId}`)
+            .get(`/message/getMessages/${receiver._id}`)
             .then((response) => {
-                console.log(response.data);
                 setConversation(response.data.messages);
+                setReceiver(receiver);
             })
             .catch((error) => {
                 console.log(
