@@ -12,10 +12,11 @@ export default function ChatBox() {
     const [message, setMessage] = useState("");
     const axiosPrivate = useAxiosPrivate();
     useListenMessage();
+    //console.log(user.username);
 
     const handleSend = () => {
         axiosPrivate
-            .post(`/message/sendMessage/${receiver._id}`, { message })
+            .post(`/message/sendMessage/${receiver?._id}`, { message })
             .then((response) => {
                 setConversation((prevConversation) => [
                     ...prevConversation,
@@ -39,22 +40,23 @@ export default function ChatBox() {
                     />
                     <h1 className="ml-3">{receiver?.username}</h1>
                 </div>
-                <div className="bg-lightBrown row-start-2 row-end-6">
+                <div className="bg-lightBrown row-start-2 row-end-6 overflow-auto">
                     {conversation?.length === 0 ? (
                         <h1>Start conversation</h1>
                     ) : (
-                        conversation.map((message) => (
-                            <div
-                                className={
-                                    "bg-darkBrown block " +
-                                    (user._id === message.sender
-                                        ? "mr-0"
-                                        : "ml-0")
-                                }
-                            >
-                                {message.content}
-                            </div>
-                        ))
+                        conversation.map((message) => {
+                            const msgAuthor =
+                                user._id === message.receiver
+                                    ? "chat-start"
+                                    : "chat-end";
+                            return (
+                                <div className={`chat ${msgAuthor}`}>
+                                    <div className="chat-bubble bg-darkBrown text-lightBrown font-semibold">
+                                        {message.content}
+                                    </div>
+                                </div>
+                            );
+                        })
                     )}
                 </div>
                 <div className="flex justify-between items-center bg-lightBrown border-t-4 border-red-700 row-start-6">

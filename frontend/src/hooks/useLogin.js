@@ -13,11 +13,11 @@ const useLogin = () => {
                 dispatch(storeLogin(response.data.user)); //to login in store
                 setIsValidCredentials(true);
                 localStorage.setItem(
-                    "token",
+                    `token${response.data.user._id}`,
                     JSON.stringify(response.data.accessToken)
                 );
                 localStorage.setItem(
-                    "user",
+                    `user${response.data.user._id}`,
                     JSON.stringify(response.data.user)
                 );
                 //dispatch({ type: "socket/connect" }); // to store the socket instance

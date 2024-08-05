@@ -1,6 +1,9 @@
 import axios from "../axios/axios.js";
+import { useSelector } from "react-redux";
 
 const useRefresh = () => {
+    const user = useSelector((state) => state.auth.user);
+
     const refresh = async () => {
         try {
             const response = await axios.get("/user/refreshToken", {
@@ -8,7 +11,7 @@ const useRefresh = () => {
             });
 
             localStorage.setItem(
-                "token",
+                `token${user._id}`,
                 JSON.stringify(response.data.accessToken)
             );
 

@@ -28,6 +28,7 @@ export default function UserList() {
     }, [onlineUsers]);
 
     const getConversation = (receiver) => {
+        console.log(receiver.username);
         axiosPrivate
             .get(`/message/getMessages/${receiver._id}`)
             .then((response) => {
@@ -43,7 +44,7 @@ export default function UserList() {
     };
 
     return !loading ? (
-        <div>
+        <div className="overflow-auto">
             {userList.length === 0 ? (
                 <h1>No one is online</h1>
             ) : (

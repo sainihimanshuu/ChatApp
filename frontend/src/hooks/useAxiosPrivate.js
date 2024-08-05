@@ -1,16 +1,18 @@
 import { axiosPrivate } from "../axios/axios.js";
 import { useEffect } from "react";
 import useRefresh from "./useRefresh.js";
+import { useSelector } from "react-redux";
 
 const useAxiosPrivate = () => {
     const refresh = useRefresh();
+    const user = useSelector((state) => state.auth.user);
 
     useEffect(() => {
         const requestInterceptor = axiosPrivate.interceptors.request.use(
             (request) => {
                 if (!request.headers["Authorization"]) {
                     request.headers["Authorization"] = `Bearer ${JSON.parse(
-                        localStorage.getItem("token")
+                        localStorage.getItem(`token${user._id}`)
                     )}`;
                 }
                 return request;

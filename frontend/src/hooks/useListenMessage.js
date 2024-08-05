@@ -8,12 +8,17 @@ const useListenMessage = () => {
 
     useEffect(() => {
         userSocket?.on("chat message", (msg) => {
-            setConversation((prevConversation) => [...prevConversation, msg]);
-            console.log(conversation);
+            setConversation((prevConversation) => {
+                if (prevConversation) {
+                    return [...prevConversation, msg];
+                }
+                return [msg];
+            });
+            //console.log(conversation);
         });
 
-        return () => userSocket?.off("new message");
-    }, [userSocket, setConversation]);
+        return () => userSocket?.off("chat message");
+    }, []);
 };
 
 export default useListenMessage;
